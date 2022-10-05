@@ -3,7 +3,14 @@ const http = require("http");
 const url = require("url");
 //The replace Template
 const replaceTemplate = (temp, product) => {
-  let output = temp.replaceAll();
+  let output = temp.replaceAll(`{%PRODUCTNAME%}`, product.productName);
+  output = output.replaceAll(`{%IMAGE%}`, product.image);
+  output = output.replaceAll(`{%ID%}`, product.id);
+  output = output.replaceAll(`{%FROM%}`, product.from);
+  output = output.replaceAll(`{%NUTRIENTS%}`, product.nutrients);
+  output = output.replaceAll(`{%PRODUCTNAME%}`, product.productName);
+  output = output.replaceAll(`{%PRODUCTNAME%}`, product.productName);
+  output = output.replaceAll(`{%PRODUCTNAME%}`, product.productName);
 };
 
 // READING FILE SYNCHRONOUSLY ONLY
@@ -29,7 +36,7 @@ const server = http.createServer((req, res) => {
       "Content-type": "text/html",
     });
 
-    const cardHtml = dataObj.map((el) => replaceTemplate(tempCard, el));
+    const cardsHtml = dataObj.map((el) => replaceTemplate(tempCard, el));
 
     res.end(tempOverview);
   } else if (pathName === "/product") {
